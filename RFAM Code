@@ -1,1 +1,14 @@
-123
+class SRFM(C2f):
+    def __init__(self, c1, c2, n=1, retention='chunk', num_heads=8, shortcut=False, g=1, e=0.5):
+        super().__init__(c1, c2, n, shortcut, g, e)
+        self.mode = retention
+        self.pe = RelPos2d(self.c, num_heads, 2, 4)
+        self.fusion_layers = nn.ModuleList(RetBlock(retention, self.c, num_heads, self.c) for _ in range(n))
+
+    def forward(self, x):
+        b, c, h, w = x.size()
+        pe = self.pe((h, w), chunkwise_recurrent=self.mode == 'chunk')
+        y = list(self.cv1(x).chunk(2, 1))
+        for layer in self.fusion_layers:
+            y.append(layer(y[-1].permute(0, 2, 3, 1), None, self.mode == 'chunk', pe).permute(0, 3, 1, 2))
+        return self.cv2(torch.cat(y, 1))
