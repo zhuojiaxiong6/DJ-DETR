@@ -128,8 +128,9 @@ python inference.py --image /path/to/image.jpg --checkpoint /path/to/checkpoint.
 
 | Model | Dataset | mAP50 | Download |
 |-------|---------|-------|----------|
-| DJ-DETR | M-TLD | 78.91% | 通过网盘分享的文件：best.pt
-链接: https://pan.baidu.com/s/1ESVJvIFqmVX--2dOu3FinA?pwd=r9s9 提取码: r9s9 |
+| DJ-DETR | M-TLD | 78.91% | [Baidu Pan](https://pan.baidu.com/s/1ESVJvIFqmVX--2dOu3FinA?pwd=r9s9) |
+
+> **Baidu Pan Password**: `r9s9`
 
 ## 🖼️ Visualization
 
